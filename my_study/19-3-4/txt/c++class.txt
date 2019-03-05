@@ -1,0 +1,36 @@
+1.所有函数写在类的外部：
+有template
+得这样写：
+	普通函数：
+	template <typename T>
+	void co<T>::print()
+	{
+		cout << "111" << endl;
+	}
+	
+	构造函数：
+	template <typename T>
+	co<T>::co<T>()
+	{
+		cout << "111" << endl;
+	}
+
+	重载的函数
+	template <typename T>
+	co<T> co<T>::operator+(co<T> &a1)
+	{
+		return this;
+	}
+
+friend友元函数放在外部：
+一直错误的本质是 
+模板是两次编译生成的  第一次生成的函数头 和第二次生成的函数头不一样
+
+方法：在声明的时候，加上 <T>
+firend ostream & operator<< <T> (ostream & out,co &a);
+
+不能滥用友元函数
+
+2.放在.h和.cpp中
+要#include   这个.cpp文件
+

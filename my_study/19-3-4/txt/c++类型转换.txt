@@ -1,0 +1,71 @@
+c++类型转换
+
+1.static_cast   静态类型转换
+
+2.reinterpret_cast    重新解释类型
+
+3.dynamic_cast      动态类型转换，如父子类
+
+4.const_cast     const属性的转换
+const  符号表机制
+
+格式：
+TYPE B = static_cast<TYPE>(a)
+
+static_cast<int>(aaa);
+
+int a;
+char c = static_cast<char>(a); 
+静态类型转换，编译时c++编译器会做类型检查
+c中，隐式类型转换的地方，均可使用
+
+但是基本类型可以转换，不能转换指针类型，如果转换，会错误
+
+这个时候就可以使用强制类型转换 reinterpret_cast<>()
+
+不能混用，如果把reinterpret_cast用在基础数据类型上，还不如直接用c的就可以了
+
+dynamic_cast  运行时识别是什么class类
+dog *p = dynamic_cast<dog *>(base);
+//成功时不为NULL，失败时为NULL
+//父类对象 ==》 子类对象，向下转型    把老子转成小子
+if(p != NULL)
+{
+
+}
+else
+{}
+
+
+const_cast<>()     去除只读属性。。。强
+但是程序员要确保这个内存空间确实能修改才行，如果不能修改会有灾难性后果
+
+
+
+多态：
+1.有继承
+2.有虚函数重写
+3.父类指针指向子类对象
+
+class animal
+{
+ public:
+	virtual void cry() = 0;
+}
+
+class dog : public animal
+{
+	public:
+		virtual void cry()
+		{
+			cout << "汪汪" << endl;
+		}
+}
+class cat : public animal
+{
+		public:
+		vitrual void cry()
+		{
+			cout << "喵喵" << endl;
+		}
+}
