@@ -1,0 +1,19 @@
+运行几个程序，就要部署几个云服务器
+
+docker build -t [name] .
+
+
+
+
+Dockerfile文件格式：
+docker build -t ma/v1 .
+
+FROM docker.io/centos                                                              
+MAINTAINER ma
+
+#/usr/local/tomcat/webapps  的位置是容器的位置
+ADD a.cpp /usr/local/tomcat/webapps/a.cpp
+
+
+
+容器的位置，会自动创建

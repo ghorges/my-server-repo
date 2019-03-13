@@ -1,0 +1,21 @@
+Docker安装要求：
+1.它仅适用于64位Linux的安装
+2.它需要的Linux内核版本3.10或更高版本
+
+uname -r查看内核版本
+
+uname --m查看系统是多少位的
+
+yum install docker-io -y   安装
+
+chkconfig docker on	设置开机启动
+
+配置 Docker
+因为国内访问 Docker Hub 较慢, 可以使用腾讯云提供的国内镜像源
+加速访问 Docker Hub
+
+依次执行以下命令
+
+echo "OPTIONS='--registry-mirror=https://mirror.ccs.tencentyun.com'" >> /etc/sysconfig/docker
+systemctl daemon-reload
+service docker restart

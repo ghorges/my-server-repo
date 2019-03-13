@@ -1,0 +1,56 @@
+如果存在，直接使用，如果不存在，在镜像仓库进行下载
+https://hub.docker.com
+（源可以切换）
+
+
+获取镜像
+docker pull 来获取
+eg:docker pull tomcat
+
+docker images
+
+latest是一个人家指定的版本，如果要自己指定，则要:版本
+eg：ubuntu:15.10
+
+
+
+查找镜像：
+eg:	docker search tomcat
+
+stars   赞
+ok	OFFICIAL官方版本
+
+
+
+
+更新镜像：
+/etc/yum sources.list
+里边用不了vi vim，只能从外边echo，echo自带的
+
+安装好之后，要增加镜像
+docker commit -m="install vim" -a="ma" [容器id] ma/ubuntu:v2
+最后一个是你镜像的名字，但是没有上传到源
+
+
+
+创建和移除镜像
+Dockerfile   //类似makefile
+
+所有下载的都要在	user/local下
+第一条指令必须是FROM
+
+
+docker build -t /path/
+
+docker buile -t [你随机启动一个名字] .
+
+
+
+docker rmi  [id]  删除镜像
+
+修改镜像标签
+
+docker tag [id]  名字:v2    v2可以随意写
+
+
+数据卷就是说，可以把docker中的，直接映射出来

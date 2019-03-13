@@ -1,0 +1,37 @@
+简化docker操作的工具
+
+下载地址：
+https://github.com/docker/compose/releases
+
+放到环境变量中以供访问
+/etc/environment
+
+放到环境变量中就可以了，比如/usr/bin
+
+
+
+然后让这个可以执行
+chmod 777 docker-compose
+
+./docker-compose version
+就看看版本啥的
+
+
+
+docker-compose的使用
+
+
+先创建一个docker-compose.yml
+yml   ---》  yaml语言，专门用来写配置文件
+
+docker-compose up
+
+docker-compose down   删除以前得一个一个删的那种  docker rm ...
+
+
+docker-compose up -d  后台
+docker-compose down
+
+
+总结：docker-compose还是简单。。。
+

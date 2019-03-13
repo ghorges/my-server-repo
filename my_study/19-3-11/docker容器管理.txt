@@ -1,0 +1,39 @@
+docker images  查看本机上已有的镜像
+
+docker两大概念：1.容器	2.镜像
+
+run
+-d		是后台运行
+-P		是把端口完全映射到宿主机上
+docker客户端  我们用的就是docker客户端
+客户端帮助命令：docker ps --help   形式就类似这种
+
+运行web容器
+
+docker run -d -P training/webapp python app.py
+
+0.0.0.0:32768->5000/tcp
+这个的意思是，把宿主机的32768映射到容器的5000上
+
+用http://132.232.63.90:32768/就可以访问
+
+-p是自己指定端口和映射端口
+-p  6000:5000	本机的6000-》容器的5000上
+
+	这个好像必须是5000，其他的不行。。。
+
+查看容器内部运行的进程
+docker top [id]
+
+
+返回这个容器的json段
+docker inspect [id]
+
+所有的容器，都会在docker虚拟下运行
+虚拟的网络环境，虚拟的服务器
+
+
+一次性移除多个web容器：
+docker rm [id] [id] [id] [id] [id]
+
+--name 设置名字

@@ -1,0 +1,34 @@
+Docker数据卷
+
+数据卷是一个可以供一个或多个容器使用的特殊目录
+
+目的：
+1.绕过'拷贝写'系统，以达到本地磁盘IO的性能
+(比如运行一个容器，在容器内修改数据卷的内容，会直接改变宿主机上的
+数据卷的内容，所以是本地磁盘IO的性能，而不是先在容器写一份
+最后还要将容器中的修改内容拷贝出来进行同步)
+
+2.绕过'拷贝写'系统，有些文件不需要在docker commit 打包进镜像文件
+
+3.在多个容器间共享目录
+
+4.在宿主和容器间共享目录
+
+5.在宿主和容器间共享一个文件
+
+还有一个好处，能持久化保存，因为如果容器销毁时，它里边东西会完全消失
+
+
+创建数据卷：
+	1.dockerfile中指定VOLUME后的目录，如VOLUME /var/lib/test
+	2.docker run 命令中加 -v 
+	eg:docker run -d -P -v /webapp:/var training/webapp python app.py
+
+
+docker run --name tomcat1 -d -p 8080:8080 -v /usr/local/docker/tomcat/share/:/usr/local/tomcat/webapps tomcat
+
+docker run -it --name cent centos /bin/bash
+
+docker run -it --name cent -v /usr/local/docker/share/:/usr/local/share/ centos /bin/bash
+
+备份数据卷：其实就是tar命令。。。。打包这个目录就ok

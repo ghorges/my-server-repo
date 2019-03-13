@@ -1,0 +1,18 @@
+docker run ubuntu:15.10 /bin/echo "Hello Docker"
+
+这个容器就是ubuntu:15.10
+
+docker images这个是看里边的映像
+
+docker ps
+
+
+运行交互式容器
+
+docker run -it ubuntu:15.10 /bin/bash
+运行后，就进入了ubuntu:15.10这个容器内了
+
+ctrl + d退回到宿主机
+
+docker ps -a  查看所有刚刚的执行的
+docker rm  [号码] 删除那些记录

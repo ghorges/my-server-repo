@@ -1,0 +1,127 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>docker</title>
+</head>
+<body>
+<h3>什么是Docker？</h3>
+摘自百度百科：
+Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，
+然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。
+容器是完全使用沙箱机制，相互之间不会有任何接口。
+<hr/>
+<b>通俗的来说，就像是虚拟机一样，但是比虚拟机好用的多，而且不用担心环境等问题。</b>
+<hr/>
+<h3>Docker的安装</h3>
+<pre>
+安装要求：1.它仅适用于64位Linux的安装
+		 2.它需要Linux内核版本至少为3.1
+		 用uname -a 可以查看这些信息
+centos安装方法：
+
+```
+yum install docker-io -y
+```
+设置开机启动(请以root用户设置)
+
+```
+chkconfig docker on
+```
+配置Docker
+因为国内访问<a href="https://hub.docker.com">Docker Hub</a>较慢，所以可以使用国内的镜像源，加速访问Docker Hub
+
+依次执行以下命令
+```
+echo "OPTIONS='--registry-mirror=https://mirror.ccs.tencentyun.com'" >> /etc/sysconfig/docker
+systemctl daemon-reload
+service docker restart
+```
+注：我用的是腾讯云的镜像源，阿里的也有镜像源，需要的可以自行去网上找下
+
+安装好之后就可以去使用Docker了，先运行下面代码试试吧
+```
+docker run centos /bin/echo "Hello Docker"
+```
+这句话是说，用镜像实例化一个centos，并且执行‘/bin/echo’命令 最后面是这个命令的参数
+
+第一次安装，里边肯定没有centos这个镜像，得先下载一段时间
+
+容器和镜像的区别：镜像就像一个类，容器就像一个类的具体化
+<b>运行交互式容器</b>
+```
+docker run -it centos /bin/bash
+```
+执行完这段代码后，就会进入这个容器内，你可以在里边做任何事，但是退出后，里边所以你修改过的东西就会消失，不会持久化保存。
+
+普通运行方式和交互式运行方式，在运行完成后，都会自动停止，用docker ps -a可以查看
+![docker ps](https://img-blog.csdnimg.cn/20190313173509547.png)
+但是一般这些程序都是一直运行，而且是放在后台的，应该怎么实现呢？
+
+```
+docker run -d centos /bin/sh -c "while true;do echo hello docker;sleep 1;done"
+```
+-d参数的意思是放在后台运行，后面是一个shell脚本，一直死循环，所以这个容器除非人为销毁，否则不会自动停止
+![后台运行docker](https://img-blog.csdnimg.cn/20190313173937434.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dob3JnZQ==,size_16,color_FFFFFF,t_70)
+
+docker ps 是查看当前正在运行的容器
+docker logs [容器id] 是查看这个容器的日志
+
+<h3>Docker 容器的管理</h3>
+docker images  查看本机上已有的镜像
+-d		是后台运行
+-P		是把端口完全映射到宿主机上
+-p 		是把指定的容器端口映射在宿主机上
+--name 	设置容器的名字
+
+查看容器内部运行的进程
+docker top [id]
+
+返回这个容器的json段
+docker inspect [id]
+
+<h3>Docker 镜像的管理</h3>
+docker pull 获取镜像
+
+![docker pull](https://img-blog.csdnimg.cn/20190313174841284.png)
+
+docker search 查找镜像
+
+Dockerfile：这个类似于makefile，是用来一键部署docker镜像的，需要的自行百度，这里就不详细介绍了
+
+<h3>数据卷</h3>
+数据卷是一个可以供一个或多个容器使用的特殊目录
+
+目的：
+1.绕过'拷贝写'系统，以达到本地磁盘IO的性能
+(比如运行一个容器，在容器内修改数据卷的内容，会直接改变宿主机上的
+数据卷的内容，所以是本地磁盘IO的性能，而不是先在容器写一份
+最后还要将容器中的修改内容拷贝出来进行同步)
+
+2.绕过'拷贝写'系统，有些文件不需要在docker commit 打包进镜像文件
+
+3.在多个容器间共享目录
+
+4.在宿主和容器间共享目录
+
+5.在宿主和容器间共享一个文件
+
+在docker run 后加-v参数即可
+eg：
+``
+docker run -it --name cent -v /usr/local/docker/share/:/usr/local/share/ centos /bin/bash
+```
+这时，宿主机的/usr/local/docker/share/文件夹和/usr/local/share/文件夹共享。
+
+<h3>Docker Compose</h3>
+简化docker操作的工具
+<a href="https://github.com/docker/compose/releases">下载地址</a>
+
+这个也不详细说了，需要的自行百度，这个比Dockerfile简便，建议如果想学学这个Docker Compose
+</pre>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+docker run -d ubuntu:15.10 /bin/sh -c "while true;do echo hello docker;sleep 1;done"
+
+-d是在后台运行  后面是个shell死循环
+
+
+docker logs [容器id]
+就会把所有的都打印出来
+
+-f命令是追踪
+
+
+
+如果想让这个停止  docker stop [容器id]
+
+
+
+docker exec -it [容器id]  /bin/bash
+
+在宿主运行的最上面那个程序，确实在下面杀不掉。。
