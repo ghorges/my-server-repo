@@ -1,0 +1,29 @@
+动态内存和智能指针
+
+#include <memory>
+
+引用计数
+
+
+
+shared_ptr类
+
+shared_ptr<string> p1;
+shared_ptr<list<int>>p2;
+
+
+
+make_shared函数
+make_shared<T>(args)	返回一个shared_ptr,指向一个动态分配的类型
+			为T的对象，使用args初始化此对象
+
+int a = 10;
+shared_ptr<int>t = make_shared<int>(a);
+
+这个只是初始化一下，和a之后没有什么关系了
+
+当然，我们通常用auto定义一个对象类保存make_shared的结果
+这种方式较为简单
+
+auto p6 = make_shared<vector<string>>();
+
