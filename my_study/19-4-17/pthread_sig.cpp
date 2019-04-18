@@ -13,13 +13,26 @@ void *aaa(void *p)
 }
 void bbb(int t)
 {
-    cout << "float err" << endl;
+    cout << "float err~~~" << endl;
+    return;
     pthread_cancel(pthread_self());
     sleep(2);
 }
 int main()
 {
-    signal(SIGFPE,bbb);
+    pthread_t m = 0;
+    m = pthread_self();
+
+    //signal(SIGFPE,bbb);
+    
+    //signal(SIGFPE,SIG_IGN);
+    //int a = 1/0;
+    //cout << "1111111111111" << endl;
+
+
+
+
+    //return 0;
     pthread_t t;
     pthread_create(&t,NULL,aaa,NULL);
     while(1)
