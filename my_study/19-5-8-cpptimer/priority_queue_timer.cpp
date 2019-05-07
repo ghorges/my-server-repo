@@ -37,21 +37,18 @@ int main()
         start = time( NULL );
         int nums = epoll_wait(fd, events, 10, timeout);
 
-        timeout = end - start;
+        timeout -= (end - start) * 1000;
         if(timeout <= 0 || nums == 0) {
             while(1) {
                 if(pq.empty()) {
                     timeout = -1;
                     break;
                 }
-                if (start >= pq.top()) {
+                if (time( NULL ) >= pq.top()) {
                     cout << "一个已出!!" << pq.top() - time( NULL ) << endl;
                     pq.pop();
                 } else {
-                    if(!pq.empty()) {
                         timeout = (pq.top() - time( NULL )) * 1000;
-                    } else {
-                        timeout = -1;
                     }
                     break;
                 }
