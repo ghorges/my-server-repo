@@ -10,7 +10,7 @@ using namespace std;
 void *ccc(void *p)
 {
     cout << "88" << endl;
-    exit();
+    //exit();
     sigset_t mask;
     sigaddset(&mask,SIGINT);
     int signo;
